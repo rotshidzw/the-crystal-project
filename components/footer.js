@@ -10,7 +10,7 @@ const footer = ({ children, title = 'Next.js App' }) => {
     
 <footer className="bg-white rounded-lg shadow text-black m-4">
     <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between">
+        <div className="sm:flex sm:items-center sm:justify-between text-center">
              <Link legacyBehavior href="#" >
             <a  className="flex items-center mb-4 sm:mb-0">
                 <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">ROTSHIDZWA</span>
@@ -33,7 +33,7 @@ const footer = ({ children, title = 'Next.js App' }) => {
         </div>
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
           <span className="block text-sm text-black sm:text-center">© 2023
-         <Link legacyBehavior href="#" ><a  className="hover:underline">rotshidzwa™</a></Link>. All Rights Reserved.</span>
+         <Link legacyBehavior href="#" ><a  className="hover:underline px-4">rotshidzwa™</a></Link>. All Rights Reserved.</span>
     </div>
     <main>
         {children}

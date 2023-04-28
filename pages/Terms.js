@@ -143,7 +143,7 @@ I&apos;m the second paragraph in your Customer Care section. Click here to add y
 Your user’s privacy is of the highest importance to your business, so take the time to write an accurate and detailed policy. Use straightforward language to gain their trust and make sure they keep coming back to your site!
 </p>
 
-<h2 className="text-4xl font-bold mb-8 mt-8">WHOLESALE INQUIRIES</h2>
+<h2 className="text-4xl text-center font-bold mb-8 mt-8">WHOLESALE INQUIRIES</h2>
     <p className="text-black mt-8  text-xl text-center max-w-2xl">
     I’m a wholesale inquiries section. I’m a great place to inform other retailers about how they can sell your stunning products. Use plain language and give as much information as possible in order to promote your business and take it to the next level!
    </p>

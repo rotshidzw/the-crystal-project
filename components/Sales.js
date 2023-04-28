@@ -4,9 +4,9 @@ import { faSpotify, faTidal, faSoundcloud, faBandcamp, faDeezer, faApple } from 
 
 const Section = () => {
   return (
-    <div className="flex flex-col md:flex-row bg-black bg-gradient-to-b md:from-black md:to-white text-white">
+    <div className="flex flex-col md:flex-row bg-black bg-gradient-to-b md:from-black md:to-white text-white text-3xl">
       <div className="w-full md:w-1/2 p-8">
-        <h1 className="text-5xl font-bold mb-4 md:text-8xl text-white">Music</h1>
+        <h1 className="text-5xl font-bold mb-4 md:text-8xl text-white text-3xl">Music</h1>
         <iframe
           width="100%"
           height="400"
@@ -23,23 +23,23 @@ const Section = () => {
         </p>
         <h1 className="text-5xl font-bold mb-4 md:text-8xl ">GET IT NOW</h1>
         <div className="flex justify-center space-x-8">
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faSpotify} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faSpotify}  />
           </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faTidal} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faTidal}  />
           </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faSoundcloud} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faSoundcloud}  />
           </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faBandcamp} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faBandcamp}  />
           </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faDeezer} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faDeezer}  />
           </a>
-          <a href="#" className="text-white hover:text-gray-400">
-            <FontAwesomeIcon icon={faApple} size="3x" />
+          <a href="#" className="text-white text-3xl hover:text-gray-400">
+            <FontAwesomeIcon icon={faApple}  />
           </a>
         </div>
       </div>

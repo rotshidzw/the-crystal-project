@@ -21,6 +21,7 @@ function Gallery() {
             activeIndex === 0 ? 'block' : 'hidden'
           }`}
         >
+          {/* eslint-disable no-alert */}
           <img
             src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
             className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -33,6 +34,7 @@ function Gallery() {
             activeIndex === 1 ? 'block' : 'hidden'
           }`}
         >
+          {/* eslint-disable no-alert */}
           <img
             src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
             className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -45,6 +47,7 @@ function Gallery() {
             activeIndex === 2 ? 'block' : 'hidden'
           }`}
         >
+          {/* eslint-disable no-alert */}
           <img
             src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
             className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -57,6 +60,7 @@ function Gallery() {
             activeIndex === 3 ? 'block' : 'hidden'
           }`}
         >
+          {/* eslint-disable no-alert */}
           <img
             src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
             className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -69,6 +73,7 @@ function Gallery() {
             activeIndex === 4 ? 'block' : 'hidden'
           }`}
         >
+          {/* eslint-disable no-alert */}
           <img
             src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
             className="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
@@ -122,7 +127,7 @@ function Gallery() {
            d="M9 5l7 7-7 7"
          ></path>
 </svg>
-<span className="sr-only">Next</span>
+    <span className="sr-only">Next</span>
 </span>
 </button>
 </div>

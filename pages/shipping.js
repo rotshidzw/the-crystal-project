@@ -1,13 +1,13 @@
-
+import { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar'
 import Footer from '../components/footer'
-import { useState, useEffect } from 'react';
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faTimes, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
-function TermsAndConditions() {
 
+const Shipping = ({}) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   useEffect(() => {
@@ -121,41 +121,27 @@ function TermsAndConditions() {
            </div>
          )}
        </div>
-    <h1 className="text-white text-center pt-28 pb-20 bg-black text-4xl  md:text-7xl font-bold mb-8">Terms and Conditions</h1>
+    <h1 className="text-white text-center pt-28 pb-20 bg-black text-4xl  md:text-7xl font-bold mb-8">SHIPPING & RETURNS</h1>
     <div className="flex flex-col items-center justify-center mt-8  bg-white">
      
       
-     <h2 className="text-4xl font-bold mb-8 mt-8"> CUSTOMER CARE</h2>
+     <h2 className="text-4xl font-bold mb-8 mt-8">SHIPPING POLICY</h2>
      <p className="text-black  text-xl text-center max-w-2xl">
-I’m a Customer Care section. I’m a great place to write a long text about your company and your services, and, most importantly, how to contact your store with queries. Writing a detailed Customer Care policy is a great way to build trust and reassure your customers that they can buy with confidence.
+     I’m a Shipping Policy section. I’m a great place to update your customers about your shipping methods, packaging and costs. Use plain, straightforward language to build trust and make sure that your customers stay loyal!
 </p> 
-<p className="text-black mt-8  text-xl text-center max-w-2xl">
-
-I&apos;m the second paragraph in your Customer Care section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-</p>
-
-<h2 className="text-4xl font-bold mb-8 mt-8">PRIVACY & SAFETY</h2>
     <p className="text-black mt-8  text-xl text-center max-w-2xl">
-    I’m a Privacy & Safety policy section. I’m a great place to inform your customers about how you use, store, and protect their personal information. Add details such as how you use third-party banking to verify payment, the way you collect data or when will you contact users after their purchase was completed successfully. 
+
+    I&apos;m the second paragraph in your Shipping Policy section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
     </p>
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
 
-Your user’s privacy is of the highest importance to your business, so take the time to write an accurate and detailed policy. Use straightforward language to gain their trust and make sure they keep coming back to your site!
-</p>
+    <h2 className="text-4xl text-center font-bold mb-8 mt-8">RETURN & EXCHANGE POLICY</h2>
+        <p className="text-black mt-8  text-xl text-center max-w-2xl">
+        I’m a return policy section. I’m a great place to let your customers know what to do in case they’ve changed their mind about their purchase, or if they’re dissatisfied with a product. Having a straightforward refund or exchange policy is a great way to build trust and reassure your customers that they can buy with confidence.
+        </p>
+        <p className="text-black mt-8  text-xl text-center max-w-2xl">
 
-<h2 className="text-4xl font-bold mb-8 mt-8">WHOLESALE INQUIRIES</h2>
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
-    I’m a wholesale inquiries section. I’m a great place to inform other retailers about how they can sell your stunning products. Use plain language and give as much information as possible in order to promote your business and take it to the next level!
-   </p>
- 
- <p className="text-black mt-8  text-xl text-center max-w-2xl">
-I&apos;m the second paragraph in your Wholesale Inquiries section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-</p>
-<h2 className="text-4xl font-bold mb-8 mt-8">PAYMENT METHODS</h2> 
-
-<h2 className="text-2xl font-bold mb-2 mt-2">- Credit / Debit Cards</h2>
-<h2 className="text-2xl font-bold mb-2 mt-2">- PAYPAL</h2>
-<h2 className="text-2xl font-bold mb-2 mt-2">- Offline Payments </h2>
+        I&apos;m the second paragraph in your Return & Exchange policy. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
+    </p>
     </div>
     <div className="flex flex-col justify-center items-center py-10  bg-black">
   <p className="text-white text-center text-2xl md:px-20 px-6">
@@ -165,9 +151,9 @@ I&apos;m the second paragraph in your Wholesale Inquiries section. Click here to
   </div>
   <Footer>
   </Footer>
-
+ 
     </>
-  );
+  )
 }
 
-export default TermsAndConditions;
+export default Shipping

@@ -22,6 +22,7 @@ const Hero = () => {
 
       </div>
       <div className="lg:w-1/2">
+        {/* eslint-disable no-alert */}
         <img src="https://static.wixstatic.com/media/503ea4_ed9a38760ae04aab86b47e82525fdcac~mv2.jpg/v1/fill/w_645,h_561,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/503ea4_ed9a38760ae04aab86b47e82525fdcac~mv2.jpg" alt="Album cover" className="w-full h-auto" />
       </div>
     </div>

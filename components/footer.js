@@ -1,32 +1,43 @@
 import React from 'react'
+import Link from 'next/link';
 
-const footer = () => {
+const footer = ({ children, title = 'Next.js App' }) => {
+    const scrollToSubscribe = () => {
+        const subscribeSection = document.querySelector('#contact');
+        subscribeSection.scrollIntoView({ behavior: 'smooth' });
+      };
   return (
     
-<footer class="bg-white rounded-lg shadow text-black m-4">
-    <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <a href="https://ROTSHIDZWA.com/" class="flex items-center mb-4 sm:mb-0">
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">ROTSHIDZWA</span>
-            </a>
-            <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-black sm:mb-0">
+<footer className="bg-white rounded-lg shadow text-black m-4">
+    <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="sm:flex sm:items-center sm:justify-between">
+             <Link legacyBehavior href="#" >
+            <a  className="flex items-center mb-4 sm:mb-0">
+                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">ROTSHIDZWA</span>
+            </a></Link>
+            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-black sm:mb-0">
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+                     <Link legacyBehavior href="/shopping" >
+                    <a  className="mr-4 text-xl hover:underline md:mr-6  lowercase">SHIPPING & RETURNS</a></Link>
                 </li>
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+                     <Link legacyBehavior href="/Terms">
+                    <a className="mr-4 text-xl hover:underline md:mr-6">Privacy Policy</a></Link>
                 </li>
                 <li>
-                    <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
+                     <Link legacyBehavior href="/Faq" >
+                    <a  className="mr-4 text-xl hover:underline md:mr-6 ">Licensing</a></Link>
                 </li>
-                <li>
-                    <a href="#" class="hover:underline">Contact</a>
-                </li>
+                
             </ul>
         </div>
-        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span class="block text-sm text-black sm:text-center">© 2023 <a href="#" class="hover:underline">rotshidzwa™</a>. All Rights Reserved.</span>
+        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+          <span className="block text-sm text-black sm:text-center">© 2023
+         <Link legacyBehavior href="#" ><a  className="hover:underline">rotshidzwa™</a></Link>. All Rights Reserved.</span>
     </div>
+    <main>
+        {children}
+      </main>
 </footer>
 
 

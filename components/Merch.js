@@ -10,7 +10,7 @@ const Merch = () => {
        <h1 className="text-6xl md:text-8xl font-bold text-black mb-16">Merch</h1>
       <p className="text-lg md:text-2xl text-black mb-8">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in tincidunt nulla, sit amet faucibus justo. Donec facilisis nisl vel felis tristique sodales. Sed consequat tellus vel tellus dictum lacinia. Praesent nec neque vel ipsum tincidunt tristique ut at velit.</p>
       <button className="bg-purple-800 hover:bg-black text-white font-bold py-3 px-12 mb-8  rounded-xl" >
-        <Link href="/contact">Get Merch</Link>
+        <Link href="/shopping">Get Merch</Link>
       </button>
      {/* eslint-disable no-alert */}
       <img src="https://static.wixstatic.com/media/503ea4_f5fbccc0050d42869bc3fa2bfb9e21c8~mv2.jpg/v1/fill/w_587,h_574,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/503ea4_f5fbccc0050d42869bc3fa2bfb9e21c8~mv2.jpg" className="" alt="Random image" />

@@ -80,12 +80,12 @@ export default function Navbar({ children, title = 'Next.js App', cartItems, isC
                       <a href="#" class="text-sm px-4 font-medium text-gray-200 hover:underline dark:text-gray-500">Forgot password?</a>
                   </div>
                   <motion.button
-        type="submit"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        variants={shakeAnimation}
-        animate={isSubmitting ? "submitting" : "rest"}
-        onAnimationComplete={() => setIsSubmitting(false)} onClick={() => setIsModalOpen(false)} class="w-full text-white bg-primary-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-black dark:focus:ring-primary-800">Sign in</motion.button>
+                  type="submit"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  variants={shakeAnimation}
+                  animate={isSubmitting ? "submitting" : "rest"}
+                  onAnimationComplete={() => setIsSubmitting(false)} onClick={() => setIsModalOpen(false)} class="w-full text-white bg-primary-600 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-600 dark:hover:bg-black dark:focus:ring-primary-800">Sign in</motion.button>
                   <p className="text-red-500 text-sm mt-2">This is just a demo   press sign in  to exit</p>
                   <p class="text-sm font-light text-gray-200 dark:text-gray-400">
                       Don’t have an account yet? <a href="#" class="font-medium text-primary-600 hover:text-white dark:text-primary-500">Sign up</a>
@@ -99,10 +99,10 @@ export default function Navbar({ children, title = 'Next.js App', cartItems, isC
         <div className="flex items-center">
               
               <button
-                className="text-gray-800 hover:text-gray-600 focus:outline-none relative"
+                className="text-2xl text-black focus:outline-none relative"
                 onClick={() => setIsCartOpen(!isCartOpen)}
               >
-                <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+                <FontAwesomeIcon icon={faShoppingCart}  />
               {cartItems && cartItems.length > 0 && (
                 <div className="absolute top-0 right-0 p-1 bg-red-500 rounded-full text-xs text-white">
                   {cartItems.length}

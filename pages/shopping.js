@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from '../components/Navbar'
 import Footer from '../components/footer'
 import { useState, useEffect } from 'react';
-
+import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faTimes, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 const items = [
@@ -105,6 +105,10 @@ export default function Home({}) {
     } else {
       setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
+    setCartItemId(item.id); // set the ID of the item that was added to the cart
+    setTimeout(() => {
+      setCartItemId(null); // clear the ID after 10 seconds
+    }, 2000);
   };
 
   const handleRemoveFromCart = (item) => {
@@ -124,6 +128,15 @@ export default function Home({}) {
       return total + item.price * item.quantity;
     }, 0);
   };
+  const [cartItemId, setCartItemId] = useState(null);
+  const [showMessage, setShowMessage] = useState(false);
+
+  const handleClick = () => {
+    setShowMessage(true);
+    setTimeout(() => setShowMessage(false), 2000);
+  };
+ 
+
 
   return (
    <> <Navbar
@@ -193,7 +206,20 @@ export default function Home({}) {
       <div className="flex justify-between mt-4">
       <p className="text-lg font-semibold">Total: ${calculateTotal()}.00</p>
       </div>
-      <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-8">Checkout</button>
+      <AnimatePresence>
+      {showMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  className="relative top-0  mt-8 bg-red-500 text-white py-2 px-4 rounded-lg text-center uppercase text-md"
+                >
+                 Just a   Demo 
+                </motion.div>
+              )}
+            </AnimatePresence>
+      <button  onClick={handleClick} className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-8">Checkout</button>
+      
     </div>
                   
                 </div>
@@ -222,6 +248,18 @@ export default function Home({}) {
               >
               Add to Cart
               </button>
+              <AnimatePresence>
+              {cartItemId === item.id && (
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -50 }}
+                  className="relative  top-0 left-1/4 transform -translate-x-1/3 mt-8 bg-purple-500 text-white py-2 px-2 rounded-lg"
+                >
+                  Item added!
+                </motion.div>
+              )}
+            </AnimatePresence>
               </div>
               </div>
               </div>

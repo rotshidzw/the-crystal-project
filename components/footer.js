@@ -1,47 +1,79 @@
-import React from 'react'
 import Link from 'next/link';
+import { FaInstagram, FaSpotify, FaYoutube, FaTiktok } from 'react-icons/fa';
 
-const footer = ({ children, title = 'Next.js App' }) => {
-    const scrollToSubscribe = () => {
-        const subscribeSection = document.querySelector('#contact');
-        subscribeSection.scrollIntoView({ behavior: 'smooth' });
-      };
+const Footer = () => {
   return (
-    
-<footer className="bg-white rounded-lg shadow text-black m-4">
-    <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-        <div className="sm:flex sm:items-center sm:justify-between text-center">
-             <Link legacyBehavior href="#" >
-            <a  className="flex items-center mb-4 sm:mb-0">
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-black">ROTSHIDZWA</span>
-            </a></Link>
-            <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-black sm:mb-0">
-                <li>
-                     <Link legacyBehavior href="/shopping" >
-                    <a  className="mr-4 text-xl hover:underline md:mr-6  lowercase">SHIPPING & RETURNS</a></Link>
-                </li>
-                <li>
-                     <Link legacyBehavior href="/Terms">
-                    <a className="mr-4 text-xl hover:underline md:mr-6">Privacy Policy</a></Link>
-                </li>
-                <li>
-                     <Link legacyBehavior href="/Faq" >
-                    <a  className="mr-4 text-xl hover:underline md:mr-6 ">Licensing</a></Link>
-                </li>
-                
+    <footer className="bg-white">
+      <div className="mx-auto w-full max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr]">
+          <div>
+            <p className="text-lg font-semibold tracking-[0.3em] text-slate-900">ROTSHIDZWA</p>
+            <p className="mt-4 text-sm text-slate-600">
+              Boutique creative studio delivering premium music, merchandise, and storytelling experiences.
+            </p>
+            <div className="mt-6 flex items-center gap-4 text-slate-500">
+              <a aria-label="Spotify" className="transition hover:text-slate-900" href="#">
+                <FaSpotify />
+              </a>
+              <a aria-label="YouTube" className="transition hover:text-slate-900" href="#">
+                <FaYoutube />
+              </a>
+              <a aria-label="Instagram" className="transition hover:text-slate-900" href="#">
+                <FaInstagram />
+              </a>
+              <a aria-label="TikTok" className="transition hover:text-slate-900" href="#">
+                <FaTiktok />
+              </a>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Company</p>
+            <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                <a href="#about" className="transition hover:text-slate-900">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="transition hover:text-slate-900">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="#pricing" className="transition hover:text-slate-900">
+                  Pricing
+                </a>
+              </li>
             </ul>
+          </div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Support</p>
+            <ul className="mt-4 space-y-2 text-sm text-slate-600">
+              <li>
+                <Link href="/Faq" className="transition hover:text-slate-900">
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link href="/Terms" className="transition hover:text-slate-900">
+                  Terms &amp; Privacy
+                </Link>
+              </li>
+              <li>
+                <Link href="/shipping" className="transition hover:text-slate-900">
+                  Shipping
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-          <span className="block text-sm text-black sm:text-center">© 2023
-         <Link legacyBehavior href="#" ><a  className="hover:underline px-4">rotshidzwa™</a></Link>. All Rights Reserved.</span>
-    </div>
-    <main>
-        {children}
-      </main>
-</footer>
+        <div className="mt-12 flex flex-col gap-2 border-t border-slate-200 pt-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <span>© 2026 Rotshidzwa. All rights reserved.</span>
+          <span>Built for modern fans. Ready for scale.</span>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
-
-  )
-}
-
-export default footer
+export default Footer;

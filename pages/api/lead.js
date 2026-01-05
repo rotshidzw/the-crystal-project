@@ -1,0 +1,74 @@
+import { getSqlClient } from '../../lib/neon';
+
+const rateLimitMap = new Map();
+
+const WINDOW_MS = 60_000;
+const MAX_REQUESTS = 10;
+
+const isValidEmail = (value) => /\S+@\S+\.\S+/.test(value);
+
+const hitRateLimit = (identifier) => {
+  const now = Date.now();
+  const entry = rateLimitMap.get(identifier) || { count: 0, start: now };
+
+  if (now - entry.start > WINDOW_MS) {
+    rateLimitMap.set(identifier, { count: 1, start: now });
+    return false;
+  }
+
+  entry.count += 1;
+  rateLimitMap.set(identifier, entry);
+  return entry.count > MAX_REQUESTS;
+};
+
+const ensureLeadTable = async (sql) => {
+  await sql`
+    CREATE TABLE IF NOT EXISTS leads (
+      id SERIAL PRIMARY KEY,
+      email TEXT NOT NULL,
+      source TEXT,
+      created_at TIMESTAMPTZ DEFAULT NOW()
+    )
+  `;
+};
+
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'POST');
+    return res.status(405).json({ message: 'Method not allowed' });
+  }
+
+  const identifier = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+  if (hitRateLimit(identifier)) {
+    return res.status(429).json({ message: 'Too many requests. Try again soon.' });
+  }
+
+  const { email } = req.body || {};
+
+  if (!email || !isValidEmail(email)) {
+    return res.status(400).json({ message: 'Please provide a valid email.' });
+  }
+
+  console.info('Lead captured', { email, receivedAt: new Date().toISOString() });
+
+  const sql = getSqlClient();
+  if (sql) {
+    try {
+      await ensureLeadTable(sql);
+      await sql`
+        INSERT INTO leads (email, source)
+        VALUES (${email}, ${'mailing-list'})
+      `;
+    } catch (error) {
+      console.error('Lead insert failed', error);
+    }
+  }
+
+  const hasEmailProvider = Boolean(process.env.RESEND_API_KEY || process.env.SMTP_HOST);
+
+  return res.status(200).json({
+    status: 'ok',
+    providerConfigured: hasEmailProvider,
+    databaseConnected: Boolean(sql),
+  });
+}

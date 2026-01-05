@@ -1,20 +1,16 @@
-
-import Navbar from '../components/Navbar'
-import Footer from '../components/footer'
 import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faTimes, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Navbar from '../components/Navbar';
+import Footer from '../components/footer';
+import CartDropdown from '../components/CartDropdown';
 
-
-function TermsAndConditions() {
-
+const Terms = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // When the component loads, check for cart items in local storage
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
@@ -47,127 +43,60 @@ function TermsAndConditions() {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
+
   return (
     <>
-    <Navbar
-    cartItems={cartItems}
-    isCartOpen={isCartOpen}
-    setIsCartOpen={setIsCartOpen}
-  />
-   <div className="  py-4 px-4 rounded-lg">
-         
-         {isCartOpen && (
-             <div className="absolute top-20 right-0 w-64 sm:w-80 md:w-96 lg:w-128 bg-white shadow-lg rounded-lg">
-             {cartItems.length > 0 ? (
-               <div className="flex flex-col p-4">
-                 {cartItems.map((item) => (
-                   <div
-                     key={item.id}
-                     className="flex items-center justify-between mb-4"
-                   >
-                    <div>
-                    <img src={item.imageUrl} alt={item.name} className="w-16 h-16 mr-4" />
-                       <p className="font-semibold">{item.name}</p>
-                       <p className="text-gray-500">${item.price}.00 x {item.quantity}</p>
-                     </div>
-                     <div className="flex items-center border rounded py-2 px-1">
-                       <button
-                         className="text-black hover:text-gray-700"
-                         onClick={() => handleRemoveFromCart(item)}
-                         >
-                         <FontAwesomeIcon icon={faMinus} />
-                         </button>
-                         <p className="mx-2">{item.quantity}</p>
-                         <button
-                         className="text-black hover:text-gray-700"
-                         onClick={() => handleAddToCart(item)}
-                         >
-                         <FontAwesomeIcon icon={faPlus} />
-                         </button>
-                         </div>
-                         
-                     <button
-                       className="text-red-500 ml-2 hover:text-red-700"
-                       onClick={() => handleRemoveFromCart(item)}
-                     >
-                       X
-                     </button>
-
-                   </div>
-                 ))}
-               
-   <div className="flex flex-col mt-8">
-     <h2 className="text-lg font-medium">Order summary</h2>
-     <div className="flex justify-between mt-4">
-     </div>
-     <div className="flex justify-between mt-4">
-       <span>Estimate Shipping</span>
-       <span>FREE</span>
-     </div>
-     <div className="flex justify-between mt-4">
-     <p className="text-lg font-semibold">Total: ${calculateTotal()}.00</p>
-     </div>
-     <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-8">Checkout</button>
-   </div>
-                 
-               </div>
-             ) : (
-               <p className="p-4">Your cart is empty.</p>
-             )}
-           </div>
-         )}
-       </div>
-    <h1 className="text-white text-center pt-28 pb-20 bg-black text-4xl  md:text-7xl font-bold mb-8">Terms and Conditions</h1>
-    <div className="flex flex-col items-center justify-center mt-8  bg-white">
-     
-      
-     <h2 className="text-4xl font-bold mb-8 mt-8"> CUSTOMER CARE</h2>
-     <p className="text-black  text-xl text-center max-w-2xl">
-I’m a Customer Care section. I’m a great place to write a long text about your company and your services, and, most importantly, how to contact your store with queries. Writing a detailed Customer Care policy is a great way to build trust and reassure your customers that they can buy with confidence.
-</p> 
-<p className="text-black mt-8  text-xl text-center max-w-2xl">
-
-I&apos;m the second paragraph in your Customer Care section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-</p>
-
-<h2 className="text-4xl font-bold mb-8 mt-8">PRIVACY & SAFETY</h2>
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
-    I’m a Privacy & Safety policy section. I’m a great place to inform your customers about how you use, store, and protect their personal information. Add details such as how you use third-party banking to verify payment, the way you collect data or when will you contact users after their purchase was completed successfully. 
-    </p>
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
-
-Your user’s privacy is of the highest importance to your business, so take the time to write an accurate and detailed policy. Use straightforward language to gain their trust and make sure they keep coming back to your site!
-</p>
-
-<h2 className="text-4xl text-center font-bold mb-8 mt-8">WHOLESALE INQUIRIES</h2>
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
-    I’m a wholesale inquiries section. I’m a great place to inform other retailers about how they can sell your stunning products. Use plain language and give as much information as possible in order to promote your business and take it to the next level!
-   </p>
- 
- <p className="text-black mt-8  text-xl text-center max-w-2xl">
-I&apos;m the second paragraph in your Wholesale Inquiries section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-</p>
-<h2 className="text-4xl font-bold mb-8 mt-8">PAYMENT METHODS</h2> 
-
-<h2 className="text-2xl font-bold mb-2 mt-2">- Credit / Debit Cards</h2>
-<h2 className="text-2xl font-bold mb-2 mt-2">- PAYPAL</h2>
-<h2 className="text-2xl font-bold mb-2 mt-2">- Offline Payments </h2>
-    </div>
-    <div className="flex flex-col justify-center items-center py-10  bg-black">
-  <p className="text-white text-center text-2xl md:px-20 px-6">
-            FOR BOOKING REQUIREMENTS<br />
-            INFO@MYSITE.COM   |   PHONE: 123-456-7890
-  </p>
-  </div>
-  <Footer>
-  </Footer>
-
+      <Navbar cartItems={cartItems} isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
+      {isCartOpen && (
+        <CartDropdown
+          cartItems={cartItems}
+          onAdd={handleAddToCart}
+          onRemove={handleRemoveFromCart}
+          total={calculateTotal()}
+        />
+      )}
+      <main className="bg-white">
+        <section className="bg-slate-900 py-16 text-white">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.5em] text-slate-400">Policies</p>
+            <h1 className="mt-4 text-3xl font-semibold sm:text-5xl">Terms &amp; Privacy</h1>
+            <p className="mt-4 max-w-2xl text-base text-slate-300">
+              Transparent policies that keep every experience professional and secure.
+            </p>
+          </div>
+        </section>
+        <section className="py-16">
+          <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="space-y-8 rounded-3xl border border-slate-200 p-8">
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">Orders &amp; fulfillment</h2>
+                <p className="mt-3 text-sm text-slate-600">
+                  All orders are confirmed within 24 hours. Limited drops are produced in small batches, so delivery
+                  windows are provided at checkout.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">Privacy</h2>
+                <p className="mt-3 text-sm text-slate-600">
+                  We only collect the information needed to fulfill your order. Data is never sold and is stored using
+                  secure, industry-standard practices.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold text-slate-900">Refunds</h2>
+                <p className="mt-3 text-sm text-slate-600">
+                  Refunds are processed within 5-7 business days after an item is received and inspected.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </>
   );
-}
+};
 
-export default TermsAndConditions;
+export default Terms;

@@ -1,20 +1,31 @@
 import { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar'
-import Footer from '../components/footer'
+import Navbar from '../components/Navbar';
+import Footer from '../components/footer';
+import CartDropdown from '../components/CartDropdown';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart, faTimes, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+const shippingSteps = [
+  {
+    title: 'Order processing',
+    description: 'Orders are confirmed within 24 hours and prepared for dispatch within 2-3 business days.',
+  },
+  {
+    title: 'Delivery timelines',
+    description: 'Standard delivery arrives in 5-7 days. Express options are available at checkout.',
+  },
+  {
+    title: 'Tracking updates',
+    description: 'You will receive real-time shipping notifications via email and SMS (optional).',
+  },
+];
 
-
-
-const Shipping = ({}) => {
+const Shipping = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
 
-  // When the component loads, check for cart items in local storage
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');
     if (storedCartItems) {
@@ -47,113 +58,46 @@ const Shipping = ({}) => {
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, 0);
+    return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
   };
+
   return (
     <>
-    <Navbar
-    cartItems={cartItems}
-    isCartOpen={isCartOpen}
-    setIsCartOpen={setIsCartOpen}
-  />
-   <div className="  py-4 px-4 rounded-lg">
-         
-         {isCartOpen && (
-             <div className="absolute top-20 right-0 w-64 sm:w-80 md:w-96 lg:w-128 bg-white shadow-lg rounded-lg">
-             {cartItems.length > 0 ? (
-               <div className="flex flex-col p-4">
-                 {cartItems.map((item) => (
-                   <div
-                     key={item.id}
-                     className="flex items-center justify-between mb-4"
-                   >
-                    <div>
-                    <img src={item.imageUrl} alt={item.name} className="w-16 h-16 mr-4" />
-                       <p className="font-semibold">{item.name}</p>
-                       <p className="text-gray-500">${item.price}.00 x {item.quantity}</p>
-                     </div>
-                     <div className="flex items-center border rounded py-2 px-1">
-                       <button
-                         className="text-black hover:text-gray-700"
-                         onClick={() => handleRemoveFromCart(item)}
-                         >
-                         <FontAwesomeIcon icon={faMinus} />
-                         </button>
-                         <p className="mx-2">{item.quantity}</p>
-                         <button
-                         className="text-black hover:text-gray-700"
-                         onClick={() => handleAddToCart(item)}
-                         >
-                         <FontAwesomeIcon icon={faPlus} />
-                         </button>
-                         </div>
-                         
-                     <button
-                       className="text-red-500 ml-2 hover:text-red-700"
-                       onClick={() => handleRemoveFromCart(item)}
-                     >
-                       X
-                     </button>
-
-                   </div>
-                 ))}
-               
-   <div className="flex flex-col mt-8">
-     <h2 className="text-lg font-medium">Order summary</h2>
-     <div className="flex justify-between mt-4">
-     </div>
-     <div className="flex justify-between mt-4">
-       <span>Estimate Shipping</span>
-       <span>FREE</span>
-     </div>
-     <div className="flex justify-between mt-4">
-     <p className="text-lg font-semibold">Total: ${calculateTotal()}.00</p>
-     </div>
-     <button className="bg-blue-500 text-white py-2 px-4 rounded-lg mt-8">Checkout</button>
-   </div>
-                 
-               </div>
-             ) : (
-               <p className="p-4">Your cart is empty.</p>
-             )}
-           </div>
-         )}
-       </div>
-    <h1 className="text-white text-center pt-28 pb-20 bg-black text-4xl  md:text-7xl font-bold mb-8">SHIPPING & RETURNS</h1>
-    <div className="flex flex-col items-center justify-center mt-8  bg-white">
-     
-      
-     <h2 className="text-4xl font-bold mb-8 mt-8">SHIPPING POLICY</h2>
-     <p className="text-black  text-xl text-center max-w-2xl">
-     I’m a Shipping Policy section. I’m a great place to update your customers about your shipping methods, packaging and costs. Use plain, straightforward language to build trust and make sure that your customers stay loyal!
-</p> 
-    <p className="text-black mt-8  text-xl text-center max-w-2xl">
-
-    I&apos;m the second paragraph in your Shipping Policy section. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-    </p>
-
-    <h2 className="text-4xl text-center font-bold mb-8 mt-8">RETURN & EXCHANGE POLICY</h2>
-        <p className="text-black mt-8  text-xl text-center max-w-2xl">
-        I’m a return policy section. I’m a great place to let your customers know what to do in case they’ve changed their mind about their purchase, or if they’re dissatisfied with a product. Having a straightforward refund or exchange policy is a great way to build trust and reassure your customers that they can buy with confidence.
-        </p>
-        <p className="text-black mt-8  text-xl text-center max-w-2xl">
-
-        I&apos;m the second paragraph in your Return & Exchange policy. Click here to add your own text and edit me. It’s easy. Just click “Edit Text” or double click me to add details about your policy and make changes to the font. I’m a great place for you to tell a story and let your users know a little more about you.
-    </p>
-    </div>
-    <div className="flex flex-col justify-center items-center py-10  bg-black">
-  <p className="text-white text-center text-2xl md:px-20 px-6">
-            FOR BOOKING REQUIREMENTS<br />
-            INFO@MYSITE.COM   |   PHONE: 123-456-7890
-  </p>
-  </div>
-  <Footer>
-  </Footer>
- 
+      <Navbar cartItems={cartItems} isCartOpen={isCartOpen} setIsCartOpen={setIsCartOpen} />
+      {isCartOpen && (
+        <CartDropdown
+          cartItems={cartItems}
+          onAdd={handleAddToCart}
+          onRemove={handleRemoveFromCart}
+          total={calculateTotal()}
+        />
+      )}
+      <main className="bg-white">
+        <section className="bg-slate-900 py-16 text-white">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.5em] text-slate-400">Shipping</p>
+            <h1 className="mt-4 text-3xl font-semibold sm:text-5xl">Delivery &amp; Returns</h1>
+            <p className="mt-4 max-w-2xl text-base text-slate-300">
+              Clear timelines and premium handling to make every drop feel effortless.
+            </p>
+          </div>
+        </section>
+        <section className="py-16">
+          <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="space-y-6">
+              {shippingSteps.map((step) => (
+                <div key={step.title} className="rounded-3xl border border-slate-200 p-6">
+                  <h2 className="text-lg font-semibold text-slate-900">{step.title}</h2>
+                  <p className="mt-3 text-sm text-slate-600">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
     </>
-  )
-}
+  );
+};
 
-export default Shipping
+export default Shipping;

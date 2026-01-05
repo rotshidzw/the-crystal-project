@@ -1,8 +1,17 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
-const CartDropdown = ({ cartItems, onAdd, onRemove, total, onCheckout = () => {}, note }) => {
+const CartDropdown = ({
+  cartItems,
+  onAdd,
+  onRemove,
+  total,
+  onCheckout = () => {},
+  checkoutHref,
+  note,
+}) => {
   return (
     <div className="fixed right-4 top-20 z-50 w-full max-w-sm rounded-2xl border border-slate-200 bg-white shadow-xl">
       {cartItems.length > 0 ? (
@@ -48,13 +57,22 @@ const CartDropdown = ({ cartItems, onAdd, onRemove, total, onCheckout = () => {}
               <span>Total</span>
               <span>${total}.00</span>
             </div>
-            <button
-              type="button"
-              onClick={onCheckout}
-              className="mt-4 w-full rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
-            >
-              Checkout
-            </button>
+            {checkoutHref ? (
+              <Link
+                href={checkoutHref}
+                className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Checkout
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={onCheckout}
+                className="mt-4 w-full rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
+              >
+                Checkout
+              </button>
+            )}
             {note && <div className="mt-3">{note}</div>}
           </div>
         </div>

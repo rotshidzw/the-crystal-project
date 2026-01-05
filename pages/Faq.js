@@ -88,6 +88,7 @@ const Faq = () => {
           onAdd={handleAddToCart}
           onRemove={handleRemoveFromCart}
           total={calculateTotal()}
+          checkoutHref="/checkout"
         />
       )}
       <main className="bg-white">

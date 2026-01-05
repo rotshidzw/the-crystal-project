@@ -63,6 +63,7 @@ export default function Home() {
           onAdd={handleAddToCart}
           onRemove={handleRemoveFromCart}
           total={calculateTotal()}
+          checkoutHref="/checkout"
         />
       )}
       <main className="bg-white">

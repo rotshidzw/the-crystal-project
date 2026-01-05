@@ -162,6 +162,7 @@ export default function Shopping() {
           onRemove={handleRemoveFromCart}
           total={calculateTotal()}
           onCheckout={handleCheckoutClick}
+          checkoutHref="/checkout"
           note={
             <AnimatePresence>
               {showMessage && (

@@ -2,11 +2,32 @@ import Image from 'next/image';
 import { useState } from 'react';
 
 const Follow = () => {
-  const [showDemoText, setShowDemoText] = useState(false);
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState({ state: 'idle', message: '' });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setShowDemoText(true);
+    if (!email.trim()) {
+      setStatus({ state: 'error', message: 'Please add a valid email address.' });
+      return;
+    }
+
+    setStatus({ state: 'loading', message: '' });
+    try {
+      const response = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.message || 'Something went wrong.');
+      }
+      setStatus({ state: 'success', message: 'You are on the list. Welcome in.' });
+      setEmail('');
+    } catch (error) {
+      setStatus({ state: 'error', message: error.message || 'Unable to subscribe.' });
+    }
   };
 
   return (
@@ -36,20 +57,23 @@ const Follow = () => {
               <input
                 type="email"
                 required
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 className="w-full rounded-full border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-white focus:outline-none focus:ring-2 focus:ring-white/30"
                 placeholder="you@example.com"
               />
             </label>
             <button
               type="submit"
-              className="w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-200"
+              disabled={status.state === 'loading'}
+              className="w-full rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-70"
             >
-              Join the list
+              {status.state === 'loading' ? 'Joining...' : 'Join the list'}
             </button>
           </form>
-          {showDemoText && (
-            <p className="mt-4 text-sm text-amber-300">
-              Demo only: connect this form to your email provider to capture subscribers.
+          {status.message && (
+            <p className={`mt-4 text-sm ${status.state === 'success' ? 'text-emerald-300' : 'text-rose-300'}`}>
+              {status.message}
             </p>
           )}
           <div className="mt-8 grid gap-4 text-sm text-slate-400 sm:grid-cols-2">

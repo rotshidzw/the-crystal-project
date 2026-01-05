@@ -8,6 +8,7 @@ import CartDropdown from '../components/CartDropdown';
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [checkoutStatus, setCheckoutStatus] = useState({ state: 'idle', message: '' });
 
   useEffect(() => {
     const storedCartItems = localStorage.getItem('cartItems');
@@ -46,6 +47,29 @@ const Checkout = () => {
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+
+  const handlePlaceOrder = async (event) => {
+    event.preventDefault();
+    setCheckoutStatus({ state: 'loading', message: '' });
+
+    try {
+      const response = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartItems }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.message || 'Unable to place order.');
+      }
+      setCheckoutStatus({
+        state: 'success',
+        message: 'Order received. Connect Stripe to complete payment processing.',
+      });
+    } catch (error) {
+      setCheckoutStatus({ state: 'error', message: error.message || 'Unable to place order.' });
+    }
   };
 
   return (
@@ -90,7 +114,7 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <form className="space-y-6 rounded-3xl border border-slate-200 p-6">
+                <form className="space-y-6 rounded-3xl border border-slate-200 p-6" onSubmit={handlePlaceOrder}>
                   <h2 className="text-lg font-semibold text-slate-900">Delivery details</h2>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block text-sm">
@@ -99,6 +123,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="Alex"
+                        required
                       />
                     </label>
                     <label className="block text-sm">
@@ -107,6 +132,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="Kidd"
+                        required
                       />
                     </label>
                     <label className="block text-sm sm:col-span-2">
@@ -115,6 +141,7 @@ const Checkout = () => {
                         type="email"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="you@email.com"
+                        required
                       />
                     </label>
                     <label className="block text-sm sm:col-span-2">
@@ -123,6 +150,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="123 Crystal Ave"
+                        required
                       />
                     </label>
                     <label className="block text-sm">
@@ -131,6 +159,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="Johannesburg"
+                        required
                       />
                     </label>
                     <label className="block text-sm">
@@ -139,12 +168,11 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="2001"
+                        required
                       />
                     </label>
                   </div>
-                </form>
 
-                <form className="space-y-6 rounded-3xl border border-slate-200 p-6">
                   <h2 className="text-lg font-semibold text-slate-900">Payment method</h2>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block text-sm sm:col-span-2">
@@ -153,6 +181,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="1234 5678 9012 3456"
+                        required
                       />
                     </label>
                     <label className="block text-sm">
@@ -161,6 +190,7 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="MM/YY"
+                        required
                       />
                     </label>
                     <label className="block text-sm">
@@ -169,14 +199,27 @@ const Checkout = () => {
                         type="text"
                         className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm focus:border-slate-900 focus:outline-none"
                         placeholder="123"
+                        required
                       />
                     </label>
                   </div>
-                  <button className="w-full rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white">
-                    Place order
+                  <button
+                    className="w-full rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white"
+                    disabled={checkoutStatus.state === 'loading'}
+                  >
+                    {checkoutStatus.state === 'loading' ? 'Submitting...' : 'Place order'}
                   </button>
+                  {checkoutStatus.message && (
+                    <p
+                      className={`text-xs ${
+                        checkoutStatus.state === 'success' ? 'text-emerald-600' : 'text-rose-600'
+                      }`}
+                    >
+                      {checkoutStatus.message}
+                    </p>
+                  )}
                   <p className="text-xs text-slate-500">
-                    Demo checkout — connect Stripe, Paystack, or your payment provider to process payments.
+                    Demo checkout — connect Stripe, Paystack, or your payment provider in <code>/pages/api/checkout.js</code>.
                   </p>
                 </form>
               </div>
